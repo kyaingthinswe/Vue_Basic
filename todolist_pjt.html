@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 50%;
+            text-align: center;
+        }
+        tr td,tr th {
+            border: 1px solid black;
+        }
+        input{
+            margin-bottom: 10px;
+        }
+        small{
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+<div id="todo">
+    <h1>{{message}}</h1>
+    <div class="">
+        <input type="text" v-model="userInput.name" placeholder="Enter name">
+        <small v-if="errorMessage.name">Name field is required!</small>
+        <br>
+        <input type="text" v-model="userInput.price" placeholder="Enter price">
+        <small v-if="errorMessage.price">Price field is required!</small>
+        <br>
+        <button @click="add">Add</button>
+        <hr>
+        <table >
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="data in userData">
+                    <td>{{data.id}}</td>
+                    <td>{{data.name}}</td>
+                    <td>{{data.price}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    let vue = new Vue({
+        el : "#todo",
+        data : {
+            message : "To Do List ",
+            userInput : {
+                name : "",
+                price : "",
+            },
+            userData : [],
+            errorMessage : {
+                name : false,
+                price : false,
+            }
+            
+
+        },
+        methods : {
+           
+            add(){
+                this.validate();
+                if(!this.errorMessage.name && !this.errorMessage.price){
+                        this.userData.push({
+                        id : this.userData.length+1,
+                        name : this.userInput.name,
+                        price : this.userInput.price,
+                    });
+                    this.userInput.name = "";
+                    this.userInput.price = "";
+                    // alert(this.userData.length);
+                }
+            },
+            validate(){
+                // this.userInput.name == ""? this.errorMessage.name = true: this.errorMessage.name=false; 
+                // this.userInput.price == ""? this.errorMessage.price = true: this.errorMessage.price=false; 
+                this.errorMessage.name = this.userInput.name == "" ? true : false;
+                this.errorMessage.price = this.userInput.price == "" ? true : false;
+            }
+          
+           
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .color{
+            color: rgb(255, 0, 128);
+        }
+        .youtube{
+            text-decoration: none;
+            color: purple;
+            font-size: 2rem;
+        }
+        .img{
+            width: 30%;
+            height: 30%;
+            display: block;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app1">
+        <h2 :class="textColor">{{message}}</h2>
+        <a :href="myUrl" target="_blank" :class="youtube" :title="title"  >youtube</a>
+        <img :src="imageSrc" :class="imageSize" alt="">
+        <input type="text" v-model="message" :disabled="status" >
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    //class, href, disable, id, src
+    let vue = new Vue({
+        el : "#app1",
+        data : {
+            message : "hello vue",
+            textColor : "color",
+            myUrl : "https://youtube.com",
+            youtube : "youtube",
+            title : "click me",
+            imageSrc : 'https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80',
+            imageSize : "img",
+            status : true,
+        }
+    })
+</script>
+</html>

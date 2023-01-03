@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <h4>{{text.split(" ").join("-")}}</h4>
+        {{text.split(" ").reverse().join(" ")}}
+        <h5 v-bind:title='message'>Do you want to know time, hover the text. </h5>
+        <h5 v-if="option">Now you see me</h5>
+        <h5>{{option ? "this is true":"this is false"}}</h5>
+        <h5>{{age+5}}</h5>
+    </div>
+
+</body>
+<script src="vue.js"></script>
+<script>
+    let vue = new Vue({
+        el : "#app",
+        data : {
+            text : "hello min ga lar pr",
+            age : 20,
+            message : new Date().toLocaleString(),
+            option : true,
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .main-box{
+            width: 70%;
+            background-color: rgb(70, 77, 77);
+            margin: 20px auto;
+            padding:  25px ;
+            border-radius: 0.25rem;
+        }
+        .result-box,.num-box, .option-box ,.save-btn,.history-box{
+            /* width: 86%; */
+            height: 40px;
+            border-radius: 0.25rem;
+            border: 0px;
+            text-align: right;
+        }
+        .result-box{
+            background-color: #fff;
+            font-size: 1.5rem;
+            padding: 5px 10px 0;
+        }
+        .num-box,.option-box{
+            height: 30px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .num-box input{
+            width: 45%;
+            padding-left: 4px;
+        }
+        .first-num-err,.second-num-err,.operator-err{
+            border: 1px solid red;
+        }
+      
+        .option-box select{
+            width: 45%;
+            text-align: center;
+        }
+        .option-box button{
+            width: 20%;
+        }
+        .save-btn{
+            width: 100%;
+            height: 30px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .history-box{
+            height: auto;
+            text-align: left;
+            background-color: #adb9b950;
+            padding: 10px 5px ;
+            margin-top: 10px;
+        }
+        .history-box h4{
+            margin-bottom: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="cal">
+        <h1 style="text-align: center; margin-top: 20px;">{{header}}</h1>
+        <div class="main-box">
+            <div class="result-box">{{result}}</div>
+            <!-- <input type="text" class="result-box" v-model="result"> -->
+            <div class="num-box">
+                <input type="number" v-model="userData.firstNum" v-if="error.firstNum" class="first-num-err" placeholder="You need to fill !" >
+                <input type="number" v-model="userData.firstNum" v-else="error.firstNum" placeholder="enter number">
+                <input type="number" v-model="userData.secondNum" v-if="error.secondNum " class="second-num-err" placeholder="You need to fill !">
+                <input type="number" v-model="userData.secondNum" v-else="error.secondNum " placeholder="enter number" >
+            </div>
+            <div class="option-box">
+                <select name="option" v-model="userData.operator" v-if="error.operator" class="operator-err">
+                    <option value="">Choose One</option>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                    <option value="/">/</option>
+                </select>
+                <select name="option" v-model="userData.operator" v-else="error.operator">
+                    <option value="">Choose One</option>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                    <option value="/">/</option>
+                </select>
+                <button @click="calc" class="calc-btn">Calc</button>
+                <button class="clear-btn" @click="clear">Clear</button>
+            </div>
+            <button @click="save" class="save-btn">Save</button>
+            <hr >
+            <div class="history-box">
+                <h4>History...</h4>
+                <h4 v-for='data in history'>{{data}}</h4>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    var cla = new Vue({
+        el : "#cal",
+        data : {
+            title : "Calculator",
+            message : "Using Vue",
+            userData : {
+                firstNum : '',
+                secondNum : '',
+                operator : '',
+            },
+            
+            result : 0,
+            history : [],
+            error : {
+                firstNum : false,
+                secondNum : false,
+                operator : false,
+            }
+        },
+        computed : {
+            header(){
+                return this.title +" "+ this.message;
+            }
+        },
+        methods : {
+            validate(){
+                this.error.firstNum = this.userData.firstNum == "" ? true : false;
+                this.error.secondNum = this.userData.secondNum == "" ? true : false;
+                this.error.operator = this.userData.operator == "" ? true : false;
+            },
+            calc(){
+                this.validate();
+                let firstNum = Number(this.userData.firstNum);
+                let secondNum = Number(this.userData.secondNum);
+                let operator = this.userData.operator;
+                let result = this.result;
+                let data ;
+                if(!this.error.firstNum && !this.error.secondNum && !this.error.operator){
+                    switch(operator){
+                        case '+' : data = firstNum + secondNum;
+                        break;
+                        case '-' : data = firstNum - secondNum;
+                        break;
+                        case '*' : data = firstNum * secondNum;
+                        break;
+                        case '/' : data = firstNum / secondNum;
+                        break;
+                        default : data = error;
+                    }
+                this.result = firstNum+operator+secondNum + " = " + data;
+
+                }
+                
+                this.remove();
+            },
+            remove(){
+                this.userData.firstNum = '',
+                this.userData.secondNum = '',
+                this.userData.operator = ''
+            },
+            save(){
+                this.remove();
+                this.history.push(this.result);
+                this.result = 0;
+            },
+            clear(){
+                this.error.firstNum = false;
+                this.error.secondNum = false;
+                this.error.operator = false;
+                this.remove();
+                this.result = 0;
+                this.history = [];
+            },
+           
+        }
+    })
+</script>
+</html>

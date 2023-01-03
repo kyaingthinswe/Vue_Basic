@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test">
+        <h1>{{title}}</h1>
+        <h4 v-if="status">Show Message</h4>
+        <ol>
+            <li v-for="item in items">
+                {{item.fruit}}
+            </li>
+        </ol>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    let vue =  new Vue({
+        el:"#test",
+        data : {
+            title : "Condition & Loop",
+            status : true,
+            items : [
+                { 'fruit': 'apple' },
+                { 'fruit': 'watermelon' },
+                { 'fruit': 'banana' },
+                { 'fruit': 'grape' },
+            ]
+        }
+    })
+</script>
+</html>

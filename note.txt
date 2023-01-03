@@ -1,0 +1,14 @@
+1_vue ကို ခေါ်သုံးဖို့အတွက် ပထမဆုံး instant ဆောက်ပေးရတယ်
+2_body ထဲမှာ expression တွေပဲရေးလို့ရ statement တွေ ရေးလို့မရ
+let vue = new Vue({
+    el : "#some", (element ကိုဆိုလို)
+    data : {
+        
+    }
+});
+01_ v:bind , v:if, 
+
+methods & computed
+
+methods ထဲက ဟာကို ခေါ်သုံးရင် optional--> () မထည့်လဲ ရတယ်။
+computed က must be return , return ပြန်ကိုပြန်ရတယ်။ () ထည့်ပြီးမခေါ်ရ။
